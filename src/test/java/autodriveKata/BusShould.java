@@ -3,9 +3,6 @@ package autodriveKata;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
@@ -15,19 +12,7 @@ public class BusShould {
 
     @Before
     public void setUp() throws Exception {
-        bus = new Bus() {
-            private List<Subscriber> subscribers = new ArrayList<>();
-
-            @Override
-            public void subscribe(Subscriber subscriber) {
-                subscribers.add(subscriber);
-            }
-
-            @Override
-            public void send(Message message) {
-                subscribers.forEach(s -> s.receive(message));
-            }
-        };
+        bus = new ListBus();
     }
 
     @Test
