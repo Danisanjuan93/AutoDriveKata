@@ -19,7 +19,7 @@ public class BusShould {
     public void send_a_message_to_a_subscriber() {
         Subscriber subscriber = mock(Subscriber.class);
         bus.subscribe(subscriber);
-        Message message = new Message() { };
+        Message message = message();
         bus.send(message);
 
         verify(subscriber, times(1)).receive(any());
@@ -33,12 +33,16 @@ public class BusShould {
         bus.subscribe(subscriber1);
         bus.subscribe(subscriber2);
         bus.subscribe(subscriber3);
-        Message message = new Message() { };
+        Message message = message();
         bus.send(message);
 
         verify(subscriber1, times(1)).receive(any());
         verify(subscriber2, times(1)).receive(any());
         verify(subscriber3, times(1)).receive(any());
+    }
+
+    private Message message() {
+        return () -> "";
     }
 
 }
